@@ -1,0 +1,22 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Unit tests</title>
+    <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
+</head>
+<body>
+    <div id="mocha"></div>
+    <script src="../node_modules/mocha/mocha.js"></script>
+    <script>mocha.setup('bdd')</script>
+    <script src="../front-office/sources/census/application.js"></script>
+    <script src="../front-office/sources/census/attributeSelection.js"></script>
+    <script src="../front-office/sources/census/dataViewers.js"></script>
+    <script src="specs/census/application.spec.js"></script>
+    <script src="specs/census/attributeSelection.spec.js"></script>
+    <script src="specs/census/dataViewers.spec.js"></script>
+    <script>
+        mocha.checkLeaks();
+        mocha.run();
+    </script>
+</body>
+</html>
