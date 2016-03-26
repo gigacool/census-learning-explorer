@@ -1,0 +1,20 @@
+{
+  "name": "dataiku-test",
+  "version": "0.1.0",
+  "author": "Cédric Hartland <cedric.hartland@gmail.com>",
+  "description": "small full stack project on simplified version of ics census-income database",
+  "contributors": [
+    "Cédric Hartland <cedric.hartland@gmail.com>"
+  ],
+  "scripts": {
+    "start": "node ./back-office/server"
+  },
+  "engines": {
+    "node": ">=0.10"
+  },
+  "dependencies": {
+    "express": "^4.13.4",
+    "open": "0.0.5",
+    "sqlite3": "^3.1.2"
+  }
+}
