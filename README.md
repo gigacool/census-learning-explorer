@@ -17,7 +17,10 @@ The first command (only need to be run once)
 # Technical information
 * The back-end uses nodejs server with *express* framework to create a REST API.
 * The database system uses *sqlite3* (Please note that the database server is embedded in the application, you need to provide the database file)
-* I use *open* framework to automate the opening of the browser on server start. This is a development and test facility, not a production feature. 
+* I use *open* framework to automate the opening of the browser on server start. This is a development and test facility, not a production feature.
+
+Front side of the application will undergo some unit tests to validate data manipulation and some user interactions. Tests can be run by opening the test page *tests/runTests.html* page in any browser.
+In this case, we keep it simple and do not use karma test runner to validate on multiple browsers vs. versions. The short notice for development makes me focus on webkit browsers (chrome/safari). 
 
 # some links
 Original database description https://kdd.ics.uci.edu/databases/e/census-income.names
