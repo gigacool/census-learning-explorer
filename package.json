@@ -1,6 +1,6 @@
 {
   "name": "dataiku-test",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "Cédric Hartland <cedric.hartland@gmail.com>",
   "description": "small full stack project on simplified version of ics census-income database",
   "contributors": [

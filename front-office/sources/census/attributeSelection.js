@@ -18,14 +18,15 @@ _AttributesView = Backbone.View.extend({
   events: {
     'click a': 'selectItem'
   },
-  initialize:function(){
+  initialize: function() {
     window.census.application.on('select-attribute', this.highlightSelected, this);
   },
-  highlightSelected:function(data){
+  highlightSelected: function(data) {
     this.$el.find('a').removeClass('selected');
-    this.$el.find('a[data-id="'+data.id+'"]').addClass('selected');
+    this.$el.find('a[data-id="' + data.id + '"]').addClass('selected');
   },
   selectItem: function(event) {
+    console.log('clicking ?')
     var data = this.collection.findWhere({
       id: parseInt(event.target.dataset.id)
     });
@@ -49,15 +50,13 @@ AttributeSelectionView = Backbone.View.extend({
     'keyup input': 'filterAttributes'
   },
 
-  initialize: function() {
-    // NOP (?)
-  },
-
   render: function() {
     var that = this;
     this.$el.html(this.template);
     this.$nav = this.$el.find('.nav-container');
-    this.attributesListing = new _AttributesView({collection: this.collection});
+    this.attributesListing = new _AttributesView({
+      collection: this.collection
+    });
     that.$nav.html(that.attributesListing.render(that.collection));
   },
 
@@ -66,7 +65,10 @@ AttributeSelectionView = Backbone.View.extend({
     filteredCollection = new AttributesCollection(this.collection.filter(function(model) {
       return ~model.get('name').indexOf(query);
     }));
-    that.$nav.html(that.attributesListing.render(that.collection));
+    this.attributesListing = new _AttributesView({
+      collection: this.collection
+    });
+    this.$nav.html(this.attributesListing.render(filteredCollection));
   }
 });
 

@@ -8,11 +8,13 @@ Router = Backbone.Router.extend({
   },
   home: function() {
     $('article').html('<div id="data-container"></div>');
-    this.trigger('select-attribute',{id:null});
-    $('#data-container').html('Welcome');
+    this.trigger('select-attribute', {
+      id: null
+    });
+    $('#data-container').html($('#home-template').html());
   },
   explore: function(attribute, optionalItem) {
-    if (this.view){
+    if (this.view) {
       this.view.remove();
     }
     $('article').html('<div id="data-container"></div>');
@@ -31,9 +33,9 @@ Router = Backbone.Router.extend({
     this.view = basicDataViewer = new window.census.dataViewers.DataViewer({
       el: '#data-container',
       model: model,
-      item:optionalItem
+      item: optionalItem
     });
-    this.trigger('select-attribute',attributeData.toJSON());
+    this.trigger('select-attribute', attributeData.toJSON());
     model.fetch().done(function() {
       basicDataViewer.render();
     }).fail(function() {
@@ -42,8 +44,10 @@ Router = Backbone.Router.extend({
   },
   about: function() {
     $('article').html('<div id="data-container"></div>');
-    this.trigger('select-attribute',{id:null});
-    $('#data-container').html('About this project');
+    this.trigger('select-attribute', {
+      id: null
+    });
+    $('#data-container').html($('#about-template').html());
   },
   setup: function(options) {
     this.attributes = options.attributes;
