@@ -98,14 +98,17 @@ var DataViewer = Backbone.View.extend({
   events: {
     'click tbody tr': 'selectRow'
   },
-  selectRow: function(event) {
-  },
+  selectRow: function(event) {},
   render: function() {
     var that = this;
     that.model.average();
     that.$el.html(that.template(that.model.prepareForTemplate()));
     that.$el.find('table').tablesorter({
-      headers: {'1': {sorter: 'thousands'}}
+      headers: {
+        '1': {
+          sorter: 'thousands'
+        }
+      }
     });
 
   }
