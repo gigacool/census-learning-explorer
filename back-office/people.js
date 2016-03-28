@@ -62,8 +62,10 @@ module.exports = function(databasePath) {
           }
           localMap.ages.push(row.age);
         }, function() {
-          for (key in map) {
-            result.data.push(map[key]);
+          for (var key in map) {
+            if ({}.hasOwnProperty.call(map, key)) {
+              result.data.push(map[key]);
+            }
           }
           response.send(result);
         });

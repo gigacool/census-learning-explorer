@@ -40,6 +40,10 @@ a:hover
     color: #282c34;
     background-color: #abb2bf;
 }
+a.selected{
+  color: #282c34;
+  background-color: #abb2bf;
+}
 h2
 {
     font-size: 1.1em;
@@ -159,7 +163,7 @@ section
 {
     overflow: auto;
 
-    max-height: 500px;
+    max-height: 350px;
     padding: 0 10px;
 }
 table

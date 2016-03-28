@@ -18,12 +18,19 @@ _AttributesView = Backbone.View.extend({
   events: {
     'click a': 'selectItem'
   },
+  initialize:function(){
+    window.census.application.on('select-attribute', this.highlightSelected, this);
+  },
+  highlightSelected:function(data){
+    this.$el.find('a').removeClass('selected');
+    this.$el.find('a[data-id="'+data.id+'"]').addClass('selected');
+  },
   selectItem: function(event) {
     var data = this.collection.findWhere({
       id: parseInt(event.target.dataset.id)
     });
     if (data) {
-      window.census.application.trigger('attribute-selected', data.toJSON());
+      window.census.application.trigger('attribute-picked', data.toJSON());
     }
   },
   render: function(collection) {
@@ -42,7 +49,7 @@ AttributeSelectionView = Backbone.View.extend({
     'keyup input': 'filterAttributes'
   },
 
-  initialize: function(options) {
+  initialize: function() {
     // NOP (?)
   },
 

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
+
 <head lang="en">
   <meta charset="UTF-8">
   <title>Dataiku test</title>
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="stylesheets/screen.css" media="screen" title="no title" charset="utf-8">
 </head>
+
 <body>
   <div class="container">
     <header>
@@ -30,16 +32,32 @@
   <!-- For this project, we aim at a simple application architecture using basic stack of
   components around Backbone.js without using dependency management tools such as requirejs, no build steps
   to optimize running code; overalln there should be nothing too fancy -->
-  <script src="sources/3rdParties/jquery/2.1.1/jquery.min.js" ></script>
-  <script src="sources/3rdParties/jquery/plugins/tablesorter/2.0.5/jquery-tablesorter.min.js" ></script>
-  <script src="sources/3rdParties/underscore/1.6.0/underscore.min.js" ></script>
-  <script src="sources/3rdParties/handlebars/1.3.0/handlebars.min.js" ></script>
-  <script src="sources/3rdParties/numeral/1.4.8/numeral.min.js" ></script>
-  <script src="sources/3rdParties/backbone/1.1.2/backbone.min.js" ></script>
+  <script src="sources/3rdParties/jquery/2.1.1/jquery.min.js"></script>
+  <script src="sources/3rdParties/jquery/plugins/tablesorter/2.0.5/jquery-tablesorter.min.js"></script>
+  <script src="sources/3rdParties/underscore/1.6.0/underscore.min.js"></script>
+  <script src="sources/3rdParties/handlebars/1.3.0/handlebars.min.js"></script>
+  <script src="sources/3rdParties/numeral/1.4.8/numeral.min.js"></script>
+  <script src="sources/3rdParties/backbone/1.1.2/backbone.min.js"></script>
 
-   <script src="sources/census/attributeSelection.js" ></script>
-  <script src="sources/census/dataViewers.js" ></script>
-  <script src="sources/census/application.js" ></script>
-
+  <script src="sources/census/attributeSelection.js"></script>
+  <script src="sources/census/dataViewers.js"></script>
+  <script src="sources/census/application.js"></script>
+  <script type="text/javascript">
+    // get the listing of attributes, then start the application
+    var attributes = new window.census.attributeSelector.AttributesCollection();
+    attributes.fetch().done(function() {
+      // without dependency management or proper framework (e.g. requirejs, angular), I use the router as the application
+      // core element that can be used to share events through the application. The router only handles navigation in the
+      // application
+      window.census.application = new Router();
+      window.census.application.setup({
+        attributes: attributes
+      });
+      Backbone.history.start(); // Launch the application
+    }).fail(function() {
+      $('#data-container').html('<p class="error">Oups, something went wrong</p>');
+    });
+  </script>
 </body>
+
 </html>

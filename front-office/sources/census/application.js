@@ -7,6 +7,7 @@ Router = Backbone.Router.extend({
     '*any': 'home'
   },
   home: function() {
+    this.trigger('select-attribute',{id:null});
     $('#data-container').html('Welcome');
   },
   explore: function(attribute) {
@@ -25,6 +26,7 @@ Router = Backbone.Router.extend({
       el: '#data-container',
       model: model
     });
+    this.trigger('select-attribute',attributeData.toJSON());
     model.fetch().done(function() {
       basicDataViewer.render();
     }).fail(function() {
@@ -33,10 +35,10 @@ Router = Backbone.Router.extend({
 
   },
   about: function() {
+    this.trigger('select-attribute',{id:null});
     $('#data-container').html('About this project');
-
   },
-  initialize: function(options) {
+  setup: function(options) {
     this.attributes = options.attributes;
     var attributeSelector;
     attributeSelector = new window.census.attributeSelector.AttributeSelectionView({
@@ -44,25 +46,11 @@ Router = Backbone.Router.extend({
       collection: this.attributes
     });
     attributeSelector.render();
-    this.on('attribute-selected', this.updateSelectedAttribute);
+    this.on('attribute-picked', this.updateSelectedAttribute);
   },
   updateSelectedAttribute: function(data) {
     this.navigate('explore/' + encodeURIComponent(data.name), {
       trigger: true
     });
   }
-});
-
-// get the listing of attributes, then start the application
-var attributes = new window.census.attributeSelector.AttributesCollection();
-attributes.fetch().done(function() {
-  // without dependency management or proper framework (e.g. requirejs, angular), I use the router as the application
-  // core element that can be used to share events through the application. The router only handles navigation in the
-  // application
-  window.census.application = new Router({
-    attributes: attributes
-  });
-  Backbone.history.start(); // Launch the application
-}).fail(function() {
-  $('#data-container').html('<p class="error">Oups, something went wrong</p>');
 });
