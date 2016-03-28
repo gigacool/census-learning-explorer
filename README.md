@@ -1,7 +1,7 @@
 # Census income web application explorer
 
 This small project aims at providing a full stack REST API - SPA (Single Page
-Application) to investigate census-income database.
+Application) to investigate census-income database. [![Codacy Badge](https://api.codacy.com/project/badge/grade/25619b26bf9441eab58d0224f2b0c181)](https://www.codacy.com/app/cedrichartland/census-learning-explorer)
 
 # contact
 Having questions or meeting trouble on the application, send me a message. I'll
@@ -25,6 +25,14 @@ The first command (only need to be run once)
 
 Front side of the application will undergo some unit tests to validate data manipulation and some user interactions. Tests can be run by opening the test page *tests/runTests.html* page in any browser.
 In this case, we keep it simple and do not use karma test runner to validate on multiple browsers vs. versions. The short notice for development makes me focus on webkit browsers (chrome/safari).
+
+# Remaining work
+If I get more time, I'll focus on:
+* responsive CSS (add better screen management CSS)
+* add more charts for a better hindsight on data
+* cleanup code and unit tests (started TDD, ended up FDD (Fast & Dirty Development))
+* correct Remaining issues found via static code analysis (going through [codacy](https://www.codacy.com/app/cedrichartland/census-learning-explorer))
+* Maybe go for a JavaScript based Machine Learning classification system to predict age from new data samples.
 
 # some links
 Original database description https://kdd.ics.uci.edu/databases/e/census-income.names
