@@ -222,3 +222,6 @@ table tbody tr.selected, table tbody tr:hover {
   background-repeat: no-repeat;
   background-size: 100%;
 }
+.error{
+  color:#f66;
+}
