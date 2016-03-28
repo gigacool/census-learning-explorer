@@ -10,17 +10,14 @@ var conversionMap = {
 module.exports = function(databasePath) {
   var db = new sqlite3.Database(databasePath);
   return {
-    // cleanup:function(callback){
-    //   db.serialize(function(){
-    //     db.each('SELECT count(age) FROM census_learn_sql WHERE age IS NULL;', function(err, row){
-    //       if (row['cound(age)'] !== 0){
-    //
-    //       }
-    //     }, function(){
-    //       callback();
-    //     });
-    //   });
-    // },
+    cleanup:function(callback){
+      db.serialize(function(){
+        db.each('DELETE FROM census_learn_sql WHERE age IS NULL;', function(err, row){
+        }, function(){
+          callback();
+        });
+      });
+    },
     /* returns data meta data */
     meta: function(request, response) {
       var result = {

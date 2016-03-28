@@ -15,8 +15,8 @@ Once installed, in a command line, positioned in project folder, run the followi
 The first command (only need to be run once)
 
 1. *npm install* this will install the database system
-1. *npm cleanup {pathToDatabase}* only need to be run once, will remove null rows in database table
-1. *npm start {pathToDatabase}* the server will start then open your favorite browser to the application
+1. *npm cleanup -- {pathToDatabase}* only need to be run once, will remove null rows in database table (save up trouble for later :) )
+1. *npm start -- {pathToDatabase}* the server will start then open your favorite browser to the application
 
 # Technical information
 * The back-end uses nodejs server with *express* framework to create a REST API.
