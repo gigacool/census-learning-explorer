@@ -17,8 +17,8 @@ Handlebars.registerHelper('array', function(array, index) {
   return array[index];
 });
 
-Handlebars.registerHelper('logaray', function(array, index) {
-  return 16 * Math.log(array[index] + 1);
+Handlebars.registerHelper('barHeight', function(array, index, max) {
+  return Math.max(1,100 * (array[index] / max));
 });
 
 Handlebars.registerHelper('ratio', function(length) {
@@ -36,6 +36,61 @@ Handlebars.registerHelper('format', function(number, format) {
     return numeral(number).format(format);
   }
   return numeral(number).format('0');
+});
+
+var AttributeDetail = Backbone.Model.extend({
+    initialize: function(data) {
+      var map, max;
+      map = [];
+      for (var i = 0; i < data.ages.length; i++) {
+        var value = data.ages[i];
+        var tmp = map[value] = map[value] || [0, value];
+        tmp[0] += 1;
+      }
+      max = 0;
+      for(i= 0; i<100; i++){
+        if (!map[i]){
+          map[i]=[0,i];
+        } else {
+          max = Math.max(map[i][0],max);
+        }
+      }
+      this.set('max', max);
+      this.set('distribution', map);
+    },
+    getCleanedData: function() {
+      var distrib = this.get('distribution');
+      var result = [
+        ['count', 'age']
+      ];
+      for (var i = 0; i < distrib.length; i++) {
+        if (distrib[i]) {
+          result.push(distrib[i]);
+        }
+      }
+      return result;
+    }
+  });
+
+var DistributionViewer = Backbone.View.extend({
+  template: Handlebars.compile('<p></p><div class="histogram">{{#each distribution}}<div data-id="{{@index}}" class="bar" title="{{array this 0}} people of age {{array this 1}}" style="width:{{ratio ../distribution.length}}%;height:{{barHeight this 0 ../max}}px;">{{array this 0}}</div>{{/each}}'),
+  events:{
+    'mouseover .bar':'highlightItem',
+    'mouseout .bar':'clearHighlight'
+  },
+  clearHighlight:function(){
+    this.$p.html('');
+  },
+  highlightItem:function(event){
+    var distribution = this.model.get('distribution')[event.target.dataset.id];
+    if (distribution){
+      this.$p.html('<b>' + distribution[0] + '</b> people of age <b>'+ distribution[1] +'</b>')
+    }
+  },
+  render: function() {
+    this.$el.html(this.template(this.model.toJSON()));
+    this.$p = this.$el.find('p');
+  }
 });
 
 var DataModel = Backbone.Model.extend({
@@ -62,7 +117,8 @@ var DataModel = Backbone.Model.extend({
     });
   },
   prepareForTemplate: function() {
-    // keeps the 100 with highest amount of contributors, then provide some summary for the remaining items
+    // keeps the 100 with highest amount of contributors,
+    // then provide some summary for the remaining items
     var results, remaining, extra;
     results = this.toJSON();
     results.data = _.first(this.get('data'), 100);
@@ -82,7 +138,6 @@ var DataModel = Backbone.Model.extend({
   }
 });
 
-
 var DataViewer = Backbone.View.extend({
   template: Handlebars.compile('<h2>Repartition of age per {{name}}</h2>' +
     '{{#if extra}}<p>The following table does not include <b>{{extra.values}}</b> values representing <b>{{format extra.count "0,000"}}</b> people.{{/if}}' +
@@ -98,7 +153,29 @@ var DataViewer = Backbone.View.extend({
   events: {
     'click tbody tr': 'selectRow'
   },
-  selectRow: function(event) {},
+  selectRow: function(event) {
+    $t = event.target;
+
+    if ("TD" === $t.tagName) {
+      $t = $t.parentElement;
+    }
+    var id = $t.dataset.id;
+    if (!id) {
+      return false;
+    }
+    var data = _.findWhere(this.model.get('data'), {
+      value: id
+    });
+    var model = new AttributeDetail(data);
+    var distribution = new DistributionViewer({
+      el: '.graph-container',
+      model: model
+    })
+    distribution.render();
+    this.$el.find('.selected').removeClass('selected');
+    $t.className='selected';
+
+  },
   render: function() {
     var that = this;
     that.model.average();
@@ -110,7 +187,6 @@ var DataViewer = Backbone.View.extend({
         }
       }
     });
-
   }
 });
 

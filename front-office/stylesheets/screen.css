@@ -245,6 +245,7 @@ table tbody tr
     cursor: pointer;
     transition: all .4s;
 }
+table tbody tr.selected,
 table tbody tr:hover
 {
     background-color: #3e4451;

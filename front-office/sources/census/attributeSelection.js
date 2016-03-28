@@ -4,7 +4,7 @@ AttributesCollection = Backbone.Collection.extend({
   url: '/REST/people',
 
   parse: function(json) {
-    return json.data;
+    return json.data.slice(1, json.data.length);
   }
 });
 

@@ -3,17 +3,22 @@ window.census = window.census || {};
 Router = Backbone.Router.extend({
   routes: {
     'about': 'about',
-    'explore/:attribute': 'explore',
+    'explore/:attribute(/:item)': 'explore',
     '*any': 'home'
   },
   home: function() {
+    $('article').html('<div id="data-container"></div>');
     this.trigger('select-attribute',{id:null});
     $('#data-container').html('Welcome');
   },
-  explore: function(attribute) {
+  explore: function(attribute, optionalItem) {
+    if (this.view){
+      this.view.remove();
+    }
+    $('article').html('<div id="data-container"></div>');
     var attributeName = decodeURIComponent(attribute);
     $('#data-container').html('<h2>Repartition of age per ' + attributeName + '</h2><div class="center">Loading...</div>')
-    attributeData = this.attributes.findWhere({
+    var attributeData = this.attributes.findWhere({
       name: attributeName
     });
     if (!attributeData) {
@@ -21,10 +26,12 @@ Router = Backbone.Router.extend({
         trigger: true
       });
     }
-    model = new window.census.dataViewers.DataModel(attributeData.toJSON());
-    basicDataViewer = new window.census.dataViewers.DataViewer({
+    var model = new window.census.dataViewers.DataModel(attributeData.toJSON());
+
+    this.view = basicDataViewer = new window.census.dataViewers.DataViewer({
       el: '#data-container',
-      model: model
+      model: model,
+      item:optionalItem
     });
     this.trigger('select-attribute',attributeData.toJSON());
     model.fetch().done(function() {
@@ -32,9 +39,9 @@ Router = Backbone.Router.extend({
     }).fail(function() {
       $('#data-container').html('<p class="error">Oups, something went wrong</p>');
     });
-
   },
   about: function() {
+    $('article').html('<div id="data-container"></div>');
     this.trigger('select-attribute',{id:null});
     $('#data-container').html('About this project');
   },
