@@ -40,20 +40,19 @@ Handlebars.registerHelper('format', function(number, format) {
 
 var AttributeDetail = Backbone.Model.extend({
   initialize: function(data) {
-    var map, max;
+    var map, max, i;
     map = [];
-    for (var i = 0; i < data.ages.length; i++) {
+    for (i = 0; i < data.ages.length; i++) {
       var value = data.ages[i];
       var tmp = map[value] = map[value] || [0, value];
       tmp[0] += 1;
     }
     max = 0;
-    for (i = 0; i < 100; i++) {
+    for(i = 0; i < 100; i++) {
       if (!map[i]) {
         map[i] = [0, i];
-      } else {
-        max = Math.max(map[i][0], max);
       }
+      max = Math.max(map[i][0], max);
     }
     this.set('max', max);
     this.set('distribution', map);

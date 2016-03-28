@@ -12,7 +12,7 @@ module.exports = function(databasePath) {
   return {
     cleanup:function(callback){
       db.serialize(function(){
-        db.each('DELETE FROM census_learn_sql WHERE age IS NULL;', function(err, row){
+        db.each('DELETE FROM census_learn_sql WHERE age IS NULL;', function(){
         }, function(){
           callback();
         });

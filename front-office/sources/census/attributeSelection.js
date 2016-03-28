@@ -61,8 +61,8 @@ AttributeSelectionView = Backbone.View.extend({
   },
 
   filterAttributes: function(event) {
-    query = event.target.value;
-    filteredCollection = new AttributesCollection(this.collection.filter(function(model) {
+    var query = event.target.value;
+    var filteredCollection = new AttributesCollection(this.collection.filter(function(model) {
       return ~model.get('name').indexOf(query);
     }));
     this.attributesListing = new _AttributesView({

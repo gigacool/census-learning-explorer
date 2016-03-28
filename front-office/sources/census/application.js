@@ -1,6 +1,6 @@
 window.census = window.census || {};
 
-Router = Backbone.Router.extend({
+var Router = Backbone.Router.extend({
   routes: {
     'about': 'about',
     'explore/:attribute(/:item)': 'explore',
@@ -14,13 +14,14 @@ Router = Backbone.Router.extend({
     $('#data-container').html($('#home-template').html());
   },
   explore: function(attribute, optionalItem) {
+    var basicDataViewer, model, attributeData, attributeName;
     if (this.view) {
       this.view.remove();
     }
     $('article').html('<div id="data-container"></div>');
-    var attributeName = decodeURIComponent(attribute);
+    attributeName = decodeURIComponent(attribute);
     $('#data-container').html('<h2>Repartition of age per ' + attributeName + '</h2><div class="center">Loading...</div>')
-    var attributeData = this.attributes.findWhere({
+    attributeData = this.attributes.findWhere({
       name: attributeName
     });
     if (!attributeData) {
@@ -28,7 +29,7 @@ Router = Backbone.Router.extend({
         trigger: true
       });
     }
-    var model = new window.census.dataViewers.DataModel(attributeData.toJSON());
+    model = new window.census.dataViewers.DataModel(attributeData.toJSON());
 
     this.view = basicDataViewer = new window.census.dataViewers.DataViewer({
       el: '#data-container',
