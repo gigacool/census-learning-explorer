@@ -4,7 +4,7 @@ window.census = window.census || {};
 // we can have a proper sorting in the table
 $.tablesorter.addParser({
   id: 'thousands',
-  is: function(s) {
+  is: function() {
     return false;
   },
   format: function(s) {
