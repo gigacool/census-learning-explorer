@@ -3,6 +3,10 @@
 This small project aims at providing a full stack REST API - SPA (Single Page
 Application) to investigate census-income database.
 
+# contact
+Having questions or meeting trouble on the application, send me a message. I'll
+answer ASAP.
+
 # Getting started
 This project uses nodejs technology. First step involves installing [nodejs](https://nodejs.org/en/download/).
 You need to have a copy of the database (compatible with sqlite3)
@@ -20,7 +24,7 @@ The first command (only need to be run once)
 * I use *open* framework to automate the opening of the browser on server start. This is a development and test facility, not a production feature.
 
 Front side of the application will undergo some unit tests to validate data manipulation and some user interactions. Tests can be run by opening the test page *tests/runTests.html* page in any browser.
-In this case, we keep it simple and do not use karma test runner to validate on multiple browsers vs. versions. The short notice for development makes me focus on webkit browsers (chrome/safari). 
+In this case, we keep it simple and do not use karma test runner to validate on multiple browsers vs. versions. The short notice for development makes me focus on webkit browsers (chrome/safari).
 
 # some links
 Original database description https://kdd.ics.uci.edu/databases/e/census-income.names
