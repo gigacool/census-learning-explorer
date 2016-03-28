@@ -36,5 +36,5 @@ server.get('/REST/people/:attribute', people.attribute);
 server.listen(3000);
 console.info('Server ready at http://localhost:3000');
 
-// var open = require('open');
-// open('http://localhost:3000');
+var open = require('open');
+open('http://localhost:3000');
