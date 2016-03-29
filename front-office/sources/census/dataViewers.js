@@ -83,7 +83,7 @@ var DistributionViewer = Backbone.View.extend({
   highlightItem: function(event) {
     var distribution = this.model.get('distribution')[event.target.dataset.id];
     if (distribution) {
-      this.$p.html('<b>' + distribution[0] + '</b> people of age <b>' + distribution[1] + '</b>')
+      this.$p.html('<b>' + distribution[0] + '</b> people of age <b>' + distribution[1] + '</b>');
     }
   },
   render: function() {
@@ -97,11 +97,12 @@ var DataModel = Backbone.Model.extend({
     return this.get('href');
   },
   average: function() {
+    var data, ages, length, average;
     data = this.get('data');
     for (var i = 0; i < data.length; i++) {
-      var ages = data[i].ages;
-      var length = ages.length;
-      var average = 0;
+      ages = data[i].ages;
+      length = ages.length;
+      average = 0;
       for (var j = 0; j < length; j++) {
         average += ages[j];
       }
@@ -170,7 +171,7 @@ var DataViewer = Backbone.View.extend({
     var distribution = new DistributionViewer({
       el: '.graph-container',
       model: model
-    })
+    });
     distribution.render();
     this.$el.find('.selected').removeClass('selected');
     $t.className = 'selected';

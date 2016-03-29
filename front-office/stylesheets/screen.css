@@ -45,6 +45,7 @@ h2 {
   overflow: auto;
   width: 1024px;
   transform: translate(-50%, 0);
+  -webkit-transform: translate(-50%, 0);
 }
 header {
   position: absolute;
@@ -198,6 +199,7 @@ table tbody tr.selected, table tbody tr:hover {
   width: 100%;
   height: 160px;
   transform: rotateX(180deg);
+  -webkit-transform: rotateX(180deg);
 }
 .histogram .bar {
   font-size: 0;
@@ -213,6 +215,7 @@ table tbody tr.selected, table tbody tr:hover {
 .cv {
   display: block;
   transform: rotate(-2deg);
+  -webkit-transform: rotate(-2deg);
   width: 496px;
   height: 680px;
   margin: 40px auto 20px auto;

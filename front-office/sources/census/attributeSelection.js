@@ -26,7 +26,6 @@ _AttributesView = Backbone.View.extend({
     this.$el.find('a[data-id="' + data.id + '"]').addClass('selected');
   },
   selectItem: function(event) {
-    console.log('clicking ?')
     var data = this.collection.findWhere({
       id: parseInt(event.target.dataset.id)
     });

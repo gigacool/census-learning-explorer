@@ -20,7 +20,7 @@ var Router = Backbone.Router.extend({
     }
     $('article').html('<div id="data-container"></div>');
     attributeName = decodeURIComponent(attribute);
-    $('#data-container').html('<h2>Repartition of age per ' + attributeName + '</h2><div class="center">Loading...</div>')
+    $('#data-container').html('<h2>Repartition of age per ' + attributeName + '</h2><div class="center">Loading...</div>');
     attributeData = this.attributes.findWhere({
       name: attributeName
     });
@@ -66,3 +66,7 @@ var Router = Backbone.Router.extend({
     });
   }
 });
+
+window.census.routes = {
+  Router:Router
+};
